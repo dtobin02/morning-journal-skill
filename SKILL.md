@@ -152,6 +152,29 @@ When the user asks to synthesize:
 2. Target 400–900 words; prefer concise over padded.
 3. Save it to the configured `YYYY-MM-DD_HHMMSS.md` path.
 4. Show the complete entry in chat and state its saved path.
+5. Ask one question: **Would you like a public version edited for sharing?**
+
+## Public sharing version
+
+If the user says yes, create a separate
+`[journal_directory]/YYYY-MM-DD_HHMMSS_public.md` from the saved private post.
+Never modify the private source.
+
+Edit for an outside reader:
+
+1. Preserve the central ideas, useful reflections, plans, and the user's voice.
+2. Remove or generalize details that are unnecessary for understanding the piece:
+   names, exact locations, health or relationship details, confidential work,
+   private communications, and identifying information. Keep a detail only when
+   the user explicitly says it is public.
+3. Add enough context for someone who did not participate in the journal session.
+4. Improve the title, headings, transitions, concision, and narrative flow.
+5. Remove prompt scaffolding and repetitive process notes unless they add value.
+6. Keep uncertainty honest; do not invent facts or convert reflection into claims.
+7. Show the complete public draft in chat, state its path, and remind the user to
+   review it before sharing. Never post, upload, email, or otherwise publish it.
+
+If the public filename already exists, ask before replacing it.
 
 ## Combine a day's posts
 
@@ -164,6 +187,8 @@ When the user asks to combine today's posts, or names another date:
 3. Save it as `[journal_directory]/YYYY-MM-DD_combined.md`.
 4. Ask before replacing an existing combined file.
 5. Keep all source session posts unchanged.
+6. After saving, offer a separate `YYYY-MM-DD_combined_public.md` using the same
+   public-sharing rules.
 
 Use this structure, omitting sections that have no meaningful content:
 

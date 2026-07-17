@@ -15,6 +15,7 @@ Works with [Claude Code](https://code.claude.com/docs/en/skills) and
 - Includes an optional work or creative-writing prompt
 - Saves every session as its own timestamped Markdown post
 - Combines a day's posts later on request without changing the originals
+- Offers a separate public version edited for readability and safer sharing
 - Uses diagrams and links only when they add value
 
 ## Install
@@ -88,6 +89,7 @@ git -C ~/.claude/skills/morning-journal pull --ff-only
    is `~/Documents/morning-journal`, but any writable folder works.
 4. Choose whether to write freely or answer questions.
 5. Say **finish** whenever you want the journal synthesized and saved.
+6. Choose whether to create a separate public sharing draft.
 
 Each completed session creates a separate file such as:
 
@@ -103,6 +105,21 @@ Combine today's journal posts.
 ```
 
 The skill writes `2026-07-17_combined.md` while preserving every source post.
+
+### Public sharing drafts
+
+After saving a private session or combined post, the skill offers to create:
+
+```text
+2026-07-17_091530_public.md
+2026-07-17_combined_public.md
+```
+
+The public draft improves context and narrative flow while removing or
+generalizing unnecessary names, locations, health and relationship details,
+confidential work, private communications, and identifying information. It never
+changes the private source or publishes anything. Review the draft yourself before
+sharing it.
 
 The chosen journal directory is stored locally at:
 
