@@ -33,9 +33,15 @@ chat-only and explain that no journal file was written.
 If the config exists, read `journal_directory`. If it is missing or invalid, ask
 the setup question again rather than guessing.
 
-Use the local calendar date for `YYYY-MM-DD`. Save entries as
-`[journal_directory]/YYYY-MM-DD.md`. If today's file already exists, append a
-second entry after a horizontal rule under `## Later — HH:MM`; never overwrite it.
+Use the local date and completion time. Every completed invocation is one session
+and creates one new post:
+
+```text
+[journal_directory]/YYYY-MM-DD_HHMMSS.md
+```
+
+Never append a later session to an earlier post and never overwrite one. If the
+timestamped name somehow exists, add `-2`, `-3`, and so on.
 
 ## Safety
 
@@ -53,6 +59,8 @@ second entry after a horizontal rule under `## Later — HH:MM`; never overwrite
 4. Do not write the entry until the user says to finish or synthesize.
 5. Preserve the user's voice and distinguish their statements from synthesis.
 6. Never fabricate links, citations, project details, feelings, or conclusions.
+7. **One session = one post.** Each separate `/morning-journal` invocation creates
+   a separate timestamped file, including multiple sessions on the same day.
 
 ## Continuity preload
 
@@ -142,8 +150,20 @@ When the user asks to synthesize:
 
 1. Write a coherent entry rather than a transcript.
 2. Target 400–900 words; prefer concise over padded.
-3. Save it to the configured dated path.
+3. Save it to the configured `YYYY-MM-DD_HHMMSS.md` path.
 4. Show the complete entry in chat and state its saved path.
+
+## Combine a day's posts
+
+When the user asks to combine today's posts, or names another date:
+
+1. Read every session post matching `YYYY-MM-DD_HHMMSS*.md`, ordered by time.
+2. Synthesize one coherent day-level post. Preserve the day's arc, recurring
+   ideas, changed conclusions, plans, and useful visuals; do not concatenate or
+   transcript-dump.
+3. Save it as `[journal_directory]/YYYY-MM-DD_combined.md`.
+4. Ask before replacing an existing combined file.
+5. Keep all source session posts unchanged.
 
 Use this structure, omitting sections that have no meaningful content:
 

@@ -13,7 +13,8 @@ Works with [Claude Code](https://code.claude.com/docs/en/skills) and
 - Adapts for low, positive, or mixed moods
 - Moves from reflection to a concrete next action
 - Includes an optional work or creative-writing prompt
-- Saves dated Markdown entries without overwriting an earlier entry
+- Saves every session as its own timestamped Markdown post
+- Combines a day's posts later on request without changing the originals
 - Uses diagrams and links only when they add value
 
 ## Install
@@ -87,6 +88,21 @@ git -C ~/.claude/skills/morning-journal pull --ff-only
    is `~/Documents/morning-journal`, but any writable folder works.
 4. Choose whether to write freely or answer questions.
 5. Say **finish** whenever you want the journal synthesized and saved.
+
+Each completed session creates a separate file such as:
+
+```text
+2026-07-17_091530.md
+2026-07-17_142405.md
+```
+
+To create a day-level synthesis later, invoke `/morning-journal` and ask:
+
+```text
+Combine today's journal posts.
+```
+
+The skill writes `2026-07-17_combined.md` while preserving every source post.
 
 The chosen journal directory is stored locally at:
 
