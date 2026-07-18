@@ -1,18 +1,21 @@
 # Morning Journal skill
 
-A portable Agent Skill for a guided 10–15 minute morning journal. It asks one
-question at a time, adapts to how you are feeling, helps build a small plan, and
-saves a polished 1–2 page Markdown entry.
+A portable Agent Skill for guided, purpose-driven journaling. It asks one
+question at a time, lets the writer choose what the session should accomplish,
+previews the approximate question count, and saves a polished Markdown entry.
 
 Works with [Claude Code](https://code.claude.com/docs/en/skills) and
 [Cursor](https://cursor.com/docs/skills). Invoke it with `/morning-journal`.
 
 ## What it does
 
-- Lets you begin with free-writing or guided questions
-- Adapts for low, positive, or mixed moods
-- Moves from reflection to a concrete next action
-- Includes an optional work or creative-writing prompt
+- Opens with a purpose menu (button-style choices when the host supports them)
+- Follows free-writing immediately if you start reflecting instead of picking a mode
+- Branches into processing, direction, gratitude, tracking, learning, creating,
+  sharing, remembering, or a custom mix
+- Offers `/scope-me` only when direction/planning is the point—not every session
+- Can add gratitude or habit tracking when chosen as the mode or requested later
+- Gives a short estimate of remaining follow-ups without a rigid checklist
 - Saves every session as its own timestamped Markdown post
 - Combines a day's posts later on request without changing the originals
 - Offers a separate public version edited for readability and safer sharing
@@ -29,6 +32,8 @@ project; a project install keeps it limited to one repository.
 mkdir -p ~/.claude/skills/morning-journal
 curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/SKILL.md \
   -o ~/.claude/skills/morning-journal/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/PURPOSE_AND_MODES.md \
+  -o ~/.claude/skills/morning-journal/PURPOSE_AND_MODES.md
 ```
 
 ### Claude Code — one project
@@ -39,6 +44,8 @@ Run from the project root:
 mkdir -p .claude/skills/morning-journal
 curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/SKILL.md \
   -o .claude/skills/morning-journal/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/PURPOSE_AND_MODES.md \
+  -o .claude/skills/morning-journal/PURPOSE_AND_MODES.md
 ```
 
 ### Cursor — personal
@@ -47,6 +54,8 @@ curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main
 mkdir -p ~/.cursor/skills/morning-journal
 curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/SKILL.md \
   -o ~/.cursor/skills/morning-journal/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/PURPOSE_AND_MODES.md \
+  -o ~/.cursor/skills/morning-journal/PURPOSE_AND_MODES.md
 ```
 
 ### Cursor — one project
@@ -57,6 +66,8 @@ Run from the project root:
 mkdir -p .cursor/skills/morning-journal
 curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/SKILL.md \
   -o .cursor/skills/morning-journal/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/dtobin02/morning-journal-skill/main/PURPOSE_AND_MODES.md \
+  -o .cursor/skills/morning-journal/PURPOSE_AND_MODES.md
 ```
 
 ### One install for both Claude Code and Cursor
@@ -87,9 +98,12 @@ git -C ~/.claude/skills/morning-journal pull --ff-only
 2. Type `/morning-journal`.
 3. On first use, choose where entries should be stored. The suggested location
    is `~/Documents/morning-journal`, but any writable folder works.
-4. Choose whether to write freely or answer questions.
+4. Pick a purpose from the opening menu—or just start writing.
 5. Say **finish** whenever you want the journal synthesized and saved.
 6. Choose whether to create a separate public sharing draft.
+
+See [PURPOSE_AND_MODES.md](PURPOSE_AND_MODES.md) for the complete branching model,
+question ranges, design principles, and rationale for the future app.
 
 Each completed session creates a separate file such as:
 
