@@ -203,7 +203,10 @@ estimate if the route changes.
 
 ## Output behavior
 
-- One completed session creates one private timestamped post.
+- One completed session creates one numbered private post:
+  `YYYY-MM-DD_X_private.md`, where `X` is that session's number within the day.
+- A public version reuses the same number as `YYYY-MM-DD_X_public.md`; it does
+  not consume the next session number.
 - A later session on the same day creates another post rather than appending.
 - A user can combine a day's source posts into a separate synthesis.
 - After each private post or combined synthesis, the skill offers a separate

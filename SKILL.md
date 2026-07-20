@@ -36,15 +36,18 @@ chat-only and explain that no journal file was written.
 If the config exists, read `journal_directory`. If it is missing or invalid, ask
 the setup question again rather than guessing.
 
-Use the local date and completion time. Every completed invocation is one session
-and creates one new post:
+Use the local date and the session's sequence number for that day. Before saving,
+list files matching `YYYY-MM-DD_[number]_(private|public).md`, take the highest
+existing number, and use the next integer (starting at `1`). Every completed
+invocation is one session and creates one new private post:
 
 ```text
-[journal_directory]/YYYY-MM-DD_HHMMSS.md
+[journal_directory]/YYYY-MM-DD_X_private.md
 ```
 
-Never append a later session to an earlier post and never overwrite one. If the
-timestamped name somehow exists, add `-2`, `-3`, and so on.
+For example: `2026-07-18_1_private.md`, then `2026-07-18_2_private.md`.
+Never append a later session to an earlier post and never overwrite one. A public
+version keeps the same `X`; it does not increment the session number.
 
 ## Safety
 
@@ -64,7 +67,7 @@ timestamped name somehow exists, add `-2`, `-3`, and so on.
 5. Preserve the user's voice and distinguish their statements from synthesis.
 6. Never fabricate links, citations, project details, feelings, or conclusions.
 7. **One session = one post.** Each separate `/morning-journal` invocation creates
-   a separate timestamped file, including multiple sessions on the same day.
+   a separate numbered private file, including multiple sessions on the same day.
 8. **Follow the writing.** If the user starts reflecting, dumps thoughts, or answers
    a menu choice by writing content, abandon remaining setup and respond to that
    material. Setup exists to help them begin, not to delay them.
@@ -73,9 +76,11 @@ timestamped name somehow exists, add `-2`, `-3`, and so on.
 
 ## Continuity preload
 
-Before the opening question, silently read up to three recent `.md` entries from
-the configured journal directory. Use them only to notice continuity and tailor
-prompts; do not recite them unless asked.
+Before the opening question, silently read up to three recent numbered private
+posts (`YYYY-MM-DD_X_private.md`) from the configured journal directory. If none
+exist, fall back to recent `.md` entries for compatibility with older filenames.
+Use them only to notice continuity and tailor prompts; do not recite them unless
+asked.
 
 Also use relevant files the user explicitly provides or that are already in the
 current working context. Do not search unrelated folders for personal information.
@@ -245,15 +250,15 @@ When the user asks to synthesize:
 
 1. Write a coherent entry rather than a transcript.
 2. Target 400–900 words; prefer concise over padded.
-3. Save it to the configured `YYYY-MM-DD_HHMMSS.md` path.
+3. Calculate the next daily `X` and save to `YYYY-MM-DD_X_private.md`.
 4. Show the complete entry in chat and state its saved path.
 5. Ask one question: **Would you like a public version edited for sharing?**
 
 ## Public sharing version
 
 If the user says yes, create a separate
-`[journal_directory]/YYYY-MM-DD_HHMMSS_public.md` from the saved private post.
-Never modify the private source.
+`[journal_directory]/YYYY-MM-DD_X_public.md` from the saved private post, reusing
+the private post's `X`. Never modify the private source or allocate a new number.
 
 Edit for an outside reader:
 
@@ -275,11 +280,12 @@ If the public filename already exists, ask before replacing it.
 
 When the user asks to combine today's posts, or names another date:
 
-1. Read every session post matching `YYYY-MM-DD_HHMMSS*.md`, ordered by time.
+1. Read every source post matching `YYYY-MM-DD_[number]_private.md`, ordered
+   numerically by `X`.
 2. Synthesize one coherent day-level post. Preserve the day's arc, recurring
    ideas, changed conclusions, plans, and useful visuals; do not concatenate or
    transcript-dump.
-3. Save it as `[journal_directory]/YYYY-MM-DD_combined.md`.
+3. Save it as `[journal_directory]/YYYY-MM-DD_combined_private.md`.
 4. Ask before replacing an existing combined file.
 5. Keep all source session posts unchanged.
 6. After saving, offer a separate `YYYY-MM-DD_combined_public.md` using the same

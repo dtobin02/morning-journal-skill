@@ -16,7 +16,7 @@ Works with [Claude Code](https://code.claude.com/docs/en/skills) and
 - Offers `/scope-me` only when direction/planning is the point—not every session
 - Can add gratitude or habit tracking when chosen as the mode or requested later
 - Gives a short estimate of remaining follow-ups without a rigid checklist
-- Saves every session as its own timestamped Markdown post
+- Saves every session as its own numbered Markdown post for that day
 - Combines a day's posts later on request without changing the originals
 - Offers a separate public version edited for readability and safer sharing
 - Uses diagrams and links only when they add value
@@ -108,9 +108,12 @@ question ranges, design principles, and rationale for the future app.
 Each completed session creates a separate file such as:
 
 ```text
-2026-07-17_091530.md
-2026-07-17_142405.md
+2026-07-17_1_private.md
+2026-07-17_2_private.md
 ```
+
+The number increments once per journal session. A public sharing draft keeps the
+same number, for example `2026-07-17_2_public.md`.
 
 To create a day-level synthesis later, invoke `/morning-journal` and ask:
 
@@ -118,14 +121,15 @@ To create a day-level synthesis later, invoke `/morning-journal` and ask:
 Combine today's journal posts.
 ```
 
-The skill writes `2026-07-17_combined.md` while preserving every source post.
+The skill writes `2026-07-17_combined_private.md` while preserving every source
+post.
 
 ### Public sharing drafts
 
 After saving a private session or combined post, the skill offers to create:
 
 ```text
-2026-07-17_091530_public.md
+2026-07-17_1_public.md
 2026-07-17_combined_public.md
 ```
 
